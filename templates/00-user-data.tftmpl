@@ -1,0 +1,12 @@
+#cloud-config
+
+write_files:
+- content: |
+    TS_LOGIN_SERVER=${ts_backend_server}
+    TS_AUTH_KEY=${ts_preauth_key}
+  path: /tmp/init.env
+  permissions: '0400'
+- content: |
+    net.ipv4.ip_forward = 1
+  path: /etc/sysctl.d/99-forwarding.conf
+  permissions: '0400'
