@@ -54,4 +54,11 @@ resource "vultr_instance" "ts-exit-node" {
         ts_preauth_key    = var.ts_preauth_key,
     })
     hostname = "ts-exit-${each.value}"
+    lifecycle {
+        ignore_changes = [
+            # Ignore changes to tags, e.g. because a management agent
+            # updates these based on some ruleset managed elsewhere.
+            user_data,
+        ]
+    }
 }
